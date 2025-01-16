@@ -4,8 +4,6 @@ import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { FlipWords } from "@/components/ui/flip-words";
 import Image from "next/image";
 import { Kanit } from "next/font/google";
-import { Button } from "@/components/ui/button";
-import { handelSignInWithGithub, handleSignInWithGoogle } from "@/lib/auth/signinServerAvction";
 import { useSession } from 'next-auth/react';
 import NavBar from "@/components/nav-bar";
 

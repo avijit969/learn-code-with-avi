@@ -1,10 +1,13 @@
 'use client'
 import React from 'react'
-import Lottie from 'lottie-react'
-import auth from '../../../../public/lotties/auth.json'
 import { FaGithub } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
+import dynamic from 'next/dynamic';
 import { handelSignInWithGithub, handleSignInWithGoogle } from '@/lib/auth/signinServerAvction';
+// Dynamically import the Lottie component
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
+import auth from '../../../../public/lotties/auth.json';
+
 export default function page() {
     return (
         <div className='w-full lg:h-screen h-[90vh] flex flex-col justify-center items-center'>
