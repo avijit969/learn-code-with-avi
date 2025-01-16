@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import NavBar from "@/components/nav-bar";
 import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
