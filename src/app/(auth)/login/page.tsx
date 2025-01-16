@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Lottie from 'lottie-react'
-import auth from '../../../.././public/lotties/auth.json'
+import auth from '../../../../public/lotties/auth.json'
 import { FaGithub } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import { handelSignInWithGithub, handleSignInWithGoogle } from '@/lib/auth/signinServerAvction';
