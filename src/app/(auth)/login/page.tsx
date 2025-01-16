@@ -15,8 +15,7 @@ export default function page() {
                     <div className='flex flex-col justify-center items-center font-bold gap-4'>
                         <button className='border-2 border-blue-300 p-2 rounded-lg flex justify-center items-center gap-2'
                             onClick={async () => {
-                                const res = await handleSignInWithGoogle();
-                                console.log(res);
+                                await handleSignInWithGoogle();
                             }}
                         >
                             Login With Google
