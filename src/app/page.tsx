@@ -1,101 +1,82 @@
+'use client'
+import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
+import { BackgroundGradient } from "@/components/ui/background-gradient";
+import { FlipWords } from "@/components/ui/flip-words";
 import Image from "next/image";
+import { Kanit } from "next/font/google";
+import { Button } from "@/components/ui/button";
+import { handelSignInWithGithub, handleSignInWithGoogle } from "@/lib/auth/signinServerAvction";
+import { useSession } from 'next-auth/react';
+import NavBar from "@/components/nav-bar";
 
+const kanitFont = Kanit({ subsets: ['latin'], weight: '400', style: 'normal' })
 export default function Home() {
+  const words = ["HTML", "CSS", "JS", "React", "Node", "Express", "MongoDB", 'git & github'];
+  const topics = [{
+    name: "HTML",
+    image: "https://img.icons8.com/color/480/html-5--v1.png"
+  },
+  {
+    name: "CSS",
+    image: "https://img.icons8.com/color/480/css3.png"
+  },
+  {
+    name: "JS",
+    image: "https://img.icons8.com/color/480/javascript--v1.png"
+  },
+  {
+    name: "React",
+    image: "https://img.icons8.com/color/480/react-native.png"
+  },
+  {
+    name: "Node",
+    image: "https://img.icons8.com/color/480/nodejs.png"
+  },
+  {
+    name: "Express",
+    image: "https://img.icons8.com/officel/480/express-js.png"
+  },
+  {
+    name: "MongoDB",
+    image: "https://img.icons8.com/color/480/mongodb.png"
+  },
+  {
+    name: "git & github",
+    image: "https://img.icons8.com/plasticine/480/github.png"
+  }
+  ]
+  const session = useSession()
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div>
+      <NavBar />
+      <BackgroundBeamsWithCollision className="z-[-1] grid lg:grid-cols-2 grid-cols-1 h-[90vh] p-2">
+        <div className="flex justify-center items-center">
+          <div className="lg:text-4xl text-xl pt-16 lg:pt-0 font-bold dark:text-white">
+            <h1>Hey {session?.data?.user?.name}👋 !!</h1>
+            <h1>Welcome to Learn Code With Avi</h1>
+            <h1 className="bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-500 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)]">Here you can learn <FlipWords words={words} duration={500} /></h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        {/* courses */}
+        <div className="w-full lg:w-[40vw] grid grid-cols-2 gap-3 py-24 ">
+          {topics.map((courseTopics, index) => (
+            <div key={index}>
+              <BackgroundGradient className="dark:bg-black rounded-[22px] h-full p-4 bg-white" containerClassName="h-23 ">
+                <div>
+                  <div className="flex justify-evenly items-center">
+                    <h1 className={`${kanitFont.className} lg:text-4xl text-lg text-bold text-center`}>{courseTopics.name}</h1>
+                    <Image src={courseTopics.image} alt={courseTopics.name} width={100} height={100} className="lg:w-12 lg:h-12 w-8 h-8" />
+                  </div>
+                </div>
+              </BackgroundGradient>
+            </div>
+          ))}
+        </div>
+      </BackgroundBeamsWithCollision>
+      <div>
+      </div>
     </div>
+
   );
 }
