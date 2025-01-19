@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+import createMDX from '@next/mdx'
+
 const nextConfig = {
     images: {
         remotePatterns: [
@@ -10,7 +12,10 @@ const nextConfig = {
     },
     eslint: {
         ignoreDuringBuilds: true
-    }
+    },
+    pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 };
-
-export default nextConfig;
+const withMDX = createMDX({
+    // Add markdown plugins here, as desired
+})
+export default withMDX(nextConfig)

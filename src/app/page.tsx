@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Kanit } from "next/font/google";
 import { useSession } from 'next-auth/react';
 import NavBar from "@/components/nav-bar";
+import CourseCard from "@/components/course-card";
 
 const kanitFont = Kanit({ subsets: ['latin'], weight: '400', style: 'normal' })
 export default function Home() {
@@ -72,7 +73,8 @@ export default function Home() {
           ))}
         </div>
       </BackgroundBeamsWithCollision>
-      <div>
+      <div className="grid grid-cols-1 gap-1 p-4 lg:grid-cols-3">
+        <CourseCard name="FullStack Web Development" image="/images/full-stack.png" isEnrolled />
       </div>
     </div>
 
