@@ -2,7 +2,7 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Jura } from 'next/font/google';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from './ui/dropdown-menu';
@@ -12,10 +12,14 @@ import { IoClose } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
 import { useSession } from 'next-auth/react';
 import { handleSignOut } from '@/lib/auth/signOutServerAction';
-const juraFont = Jura({ subsets: ['latin'], weight: '600' })
+import { checkIsAuthenticated } from '@/lib/auth/checkIsAutheticatedServerAction';
+import { Button } from './ui/button';
+import { useRouter } from 'next/navigation';
+const juraFont = Jura({ subsets: ['latin'], weight: '700' })
 const Profile = () => {
     const handelLogout = async () => {
         await handleSignOut()
+        window.location.reload();
     }
     const session = useSession();
     return (
@@ -57,6 +61,8 @@ const Profile = () => {
 function NavBar() {
     const pathName = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const router = useRouter();
     const navBarItems = [
         { title: 'Home', url: '/' },
         { title: 'Courses', url: '/courses' },
@@ -66,10 +72,20 @@ function NavBar() {
     const handleToggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     }
+    const handelLogin = () => {
+        router.push('/login');
+    }
+    useEffect(() => {
+        const checkAuthentication = async () => {
+            const isAuthenticated = await checkIsAuthenticated();
+            setIsAuthenticated(isAuthenticated);
+        };
+        checkAuthentication();
+    }, [])
     return (
         <div className='w-full'>
             <nav
-                className={`${juraFont.className} flex justify-between px-4 items-center dark:bg-black text-black shadow-lg dark:shadow-cyan-500/50 h-[8vh] z-40 `}
+                className={`${juraFont.className} flex justify-between px-4 items-center dark:bg-black text-black dark:text-white shadow-lg dark:shadow-cyan-500/50 h-[8vh] z-40 `}
             >
                 {/* logo */}
                 <div>
@@ -97,7 +113,7 @@ function NavBar() {
                     {/* theme changer button */}
                     <ModeToggle />
                     {/* Avatar or profile */}
-                    <Profile />
+                    {isAuthenticated ? <Profile /> : <Button onClick={handelLogin}>Login</Button>}
                 </div>
                 {/* hamburger menu */}
                 <div className='lg:hidden dark:text-white'>
@@ -118,10 +134,11 @@ function NavBar() {
                             </Link>
                         ))
                     }
+                    {!isAuthenticated && <Button onClick={handelLogin} className='w-1/2'>Login</Button>}
                     <div className='flex gap-4 justify-end pr-5'>
                         <ModeToggle />
                         {/* Avatar or profile */}
-                        <Profile />
+                        {isAuthenticated && <Profile />}
                     </div>
                 </div>)}
             </nav>

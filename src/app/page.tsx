@@ -86,6 +86,7 @@ export default function Home() {
           ))}
         </div>
       </BackgroundBeamsWithCollision>
+      <h1 className="lg:text-4xl text-2xl text-center font-bold my-4">Explore our course</h1>
       <div className="grid grid-cols-1 gap-1 p-4 lg:grid-cols-3">
         <CourseCard name="FullStack Web Development" image="/images/full-stack.png" isEnrolled />
       </div>
