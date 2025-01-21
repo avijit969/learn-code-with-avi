@@ -7,7 +7,10 @@ import { Kanit } from "next/font/google";
 import { useSession } from 'next-auth/react';
 import NavBar from "@/components/nav-bar";
 import CourseCard from "@/components/course-card";
-
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useEffect } from "react";
+import { getUserDetails } from "@/lib/auth/getUserDetailsServerAction";
+import { setUser } from "@/lib/features/users/userSlice";
 const kanitFont = Kanit({ subsets: ['latin'], weight: '400', style: 'normal' })
 export default function Home() {
   const words = ["HTML", "CSS", "JS", "React", "Node", "Express", "MongoDB", 'git & github'];
@@ -45,6 +48,16 @@ export default function Home() {
   }
   ]
   const session = useSession()
+  // const dispatch = useAppDispatch();
+  // const user = useAppSelector((state) => state.user);
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     const session = await getUserDetails();
+  //   }
+  //   getUser()
+  //   dispatch(setUser({ userName: session?.data?.user?.name, email: session?.data?.user?.email, image: session?.data?.user?.image }))
+  //   console.log(user)
+  // }, [session])
   return (
     <div>
       <NavBar />

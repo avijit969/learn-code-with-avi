@@ -5,11 +5,55 @@ import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import { Jura } from 'next/font/google';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from './ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { ModeToggle } from './theme-mode';
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
+import { CiLogout } from "react-icons/ci";
+import { useSession } from 'next-auth/react';
+import { handleSignOut } from '@/lib/auth/signOutServerAction';
 const juraFont = Jura({ subsets: ['latin'], weight: '600' })
+const Profile = () => {
+    const handelLogout = async () => {
+        await handleSignOut()
+    }
+    const session = useSession();
+    return (
+        <DropdownMenu >
+            <DropdownMenuTrigger asChild>
+                <Avatar >
+                    <AvatarImage src={session.data?.user?.image || "https://github.com/shadcn.png"} alt="profile" />
+                    <AvatarFallback>DP</AvatarFallback>
+                </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                <DropdownMenuLabel>Profile</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                    <DropdownMenuItem>
+                        <div className='flex flex-col justify-center w-full items-center' >
+                            <Avatar>
+                                <AvatarImage src={session.data?.user.image} />
+                                <AvatarFallback>DP</AvatarFallback>
+                            </Avatar>
+                            <h1 className='text-lg font-semibold'>{session.data?.user?.name}</h1>
+                        </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <button className='flex justify-center items-center content-center gap-4'
+                            onClick={handelLogout}>
+                            Log Out
+                            <CiLogout />
+                        </button>
+                        <DropdownMenuShortcut className='hidden lg:block'>
+                            ⇧⌘Q
+                        </DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                </DropdownMenuGroup>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    )
+}
 function NavBar() {
     const pathName = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,7 +66,6 @@ function NavBar() {
     const handleToggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     }
-
     return (
         <div className='w-full'>
             <nav
@@ -54,17 +97,7 @@ function NavBar() {
                     {/* theme changer button */}
                     <ModeToggle />
                     {/* Avatar or profile */}
-                    <DropdownMenu >
-                        <DropdownMenuTrigger asChild>
-                            <Avatar >
-                                <AvatarImage src="https://github.com/shadcn.png" alt="profile" />
-                                <AvatarFallback>DP</AvatarFallback>
-                            </Avatar>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <DropdownMenuLabel>My Profile</DropdownMenuLabel>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                    <Profile />
                 </div>
                 {/* hamburger menu */}
                 <div className='lg:hidden dark:text-white'>
@@ -88,17 +121,7 @@ function NavBar() {
                     <div className='flex gap-4 justify-end pr-5'>
                         <ModeToggle />
                         {/* Avatar or profile */}
-                        <DropdownMenu >
-                            <DropdownMenuTrigger asChild>
-                                <Avatar >
-                                    <AvatarImage src="https://github.com/shadcn.png" alt="profile" />
-                                    <AvatarFallback>DP</AvatarFallback>
-                                </Avatar>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                <DropdownMenuLabel>My Profile</DropdownMenuLabel>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                        <Profile />
                     </div>
                 </div>)}
             </nav>

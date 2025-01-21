@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "next-auth/react";
+import StoreProvider from "./StoreProvider";
 
 export const metadata: Metadata = {
   title: "Learn code with avi",
@@ -23,7 +24,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SessionProvider>
-            {children}
+            <StoreProvider>
+              {children}
+            </StoreProvider>
           </SessionProvider>
         </ThemeProvider>
       </body>
