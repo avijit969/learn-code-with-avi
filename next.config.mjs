@@ -1,12 +1,17 @@
 /** @type {import('next').NextConfig} */
 import createMDX from '@next/mdx'
 
+
 const nextConfig = {
     images: {
         remotePatterns: [
             {
                 protocol: 'https',
                 hostname: "img.icons8.com"
+            },
+            {
+                protocol: 'https',
+                hostname: 'lh3.googleusercontent.com'
             }
         ]
     },

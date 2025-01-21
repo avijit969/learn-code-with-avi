@@ -35,19 +35,24 @@ const Profile = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
-                        <div className='flex flex-col justify-center w-full items-center' >
+                        <div className='flex justify-center gap-4 w-full items-center' >
                             <Avatar>
                                 <AvatarImage src={session.data?.user.image} />
                                 <AvatarFallback>DP</AvatarFallback>
                             </Avatar>
-                            <h1 className='text-lg font-semibold'>{session.data?.user?.name}</h1>
+                            <div className="flex flex-col gap-1">
+                                <h1 className='text-lg font-semibold'>{session.data?.user?.name}</h1>
+                                <p className="">{session.data?.user?.email}</p>
+                                <Link className='text-sm text-purple-400 hover:cursor-pointer'
+                                    href={'/profile'}>View Profile</Link>
+                            </div>
                         </div>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         <button className='flex justify-center items-center content-center gap-4'
                             onClick={handelLogout}>
                             Log Out
-                            <CiLogout />
+                            <CiLogout className='text-xl' />
                         </button>
                         <DropdownMenuShortcut className='hidden lg:block'>
                             ⇧⌘Q
@@ -123,7 +128,9 @@ function NavBar() {
                         <IoClose className='text-3xl' />
                     </button>}
                 </div>
-                {isMenuOpen && (<div className='flex flex-col gap-4 h-full w-full absolute top-20 left-0 backdrop-blur-lg dark:text-white transition-transform'>
+                {isMenuOpen && (<div className='flex flex-col gap-4 h-full w-full absolute top-20 left-0 backdrop-blur-lg dark:text-white transition-transform z-50'
+
+                >
                     {
                         navBarItems.map((item, index) => (
                             <Link href={item.url}
@@ -134,7 +141,7 @@ function NavBar() {
                             </Link>
                         ))
                     }
-                    {!isAuthenticated && <Button onClick={handelLogin} className='w-1/2'>Login</Button>}
+                    {!isAuthenticated && <Button onClick={handelLogin} className='w-1/2 mx-4'>Login</Button>}
                     <div className='flex gap-4 justify-end pr-5'>
                         <ModeToggle />
                         {/* Avatar or profile */}
