@@ -1,6 +1,17 @@
-import mongoose from "mongoose";
-
-const lectureSchema = new mongoose.Schema({
+import mongoose, { model, models, Schema } from "mongoose";
+interface LectureInterface {
+  title: string;
+  courseName: string;
+  googleMeetLink: string;
+  documentLink?: string;
+  videoLink?: string;
+  startTime: Date;
+  endTime: Date;
+  duration: string;
+  description: string;
+  course: mongoose.Schema.Types.ObjectId;
+}
+const lectureSchema = new Schema<LectureInterface>({
   title: {
     type: String,
     required: true,
@@ -42,4 +53,4 @@ const lectureSchema = new mongoose.Schema({
   },
 });
 
-export const Lecture = mongoose.model("Lecture", lectureSchema);
+export const Lecture = models?.Lecture || model("Lecture", lectureSchema);

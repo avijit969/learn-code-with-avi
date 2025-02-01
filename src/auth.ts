@@ -10,7 +10,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       await dbConnect();
 
       const existingUser = await User.findOne({ email: user.email });
-      console.log("existingUser", existingUser);
       if (!existingUser) {
         await User.create({
           email: user.email,
